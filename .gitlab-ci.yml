@@ -1,8 +1,14 @@
+image: docker:stable
+services:
+  - docker:dind
+
 stages:
   - build-production
   - deploy-production
+
 before_script:
   - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
+  
 variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:test
   CONTAINER_PROD_IMAGE: $CI_REGISTRY_IMAGE:prod
