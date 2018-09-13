@@ -1,7 +1,6 @@
 deployaws
 *.pyc
 *.csv
-*.txt
 *~
 *.7z
 *.zip
