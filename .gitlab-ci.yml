@@ -12,7 +12,7 @@ before_script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
 
 variables:
-  DOCKER_HOST: docker
+  #DOCKER_HOST: docker
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
   DOCKER_DRIVER: overlay2
