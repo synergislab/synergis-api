@@ -8,7 +8,7 @@ stages:
 
 before_script:
   - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
-  
+
 variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:test
   CONTAINER_PROD_IMAGE: $CI_REGISTRY_IMAGE:prod
@@ -16,8 +16,8 @@ variables:
 build-production:
   image: "registry.gitlab.com/max_siz/synergis-api:remotemongo"
   stage: build-production
-  #tags:
-  #  - exolover-build
+  tags:
+    - indock
   #only:
   #  - master
   script:
