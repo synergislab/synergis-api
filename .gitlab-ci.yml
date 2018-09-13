@@ -19,7 +19,7 @@ variables:
   CONTAINER_PROD_IMAGE: $CI_REGISTRY_IMAGE:prod
   #
 build-production:
-  image: "registry.gitlab.com/max_siz/synergis-api:remotemongo"
+  #image: "registry.gitlab.com/max_siz/synergis-api:remotemongo"
   stage: build-production
   tags:
     - indock
