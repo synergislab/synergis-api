@@ -44,6 +44,6 @@ deploy-production:
     DOCKER_HOST: 'tcp://95.179.134.166:2375'  
   script:
     #- docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker pull $CONTAINER_PROD_IMAGE
+    - sudo docker pull $CONTAINER_PROD_IMAGE
     #- docker rm -f $CI_PROJECT_NAME 2>/dev/null || true    
     - docker-compose up 
