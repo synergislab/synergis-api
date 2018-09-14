@@ -49,6 +49,6 @@ deploy-production:
     #- export
     #- ip address
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    #- sudo docker pull $CONTAINER_PROD_IMAGE
+    - docker pull $CONTAINER_PROD_IMAGE
     #- docker rm -f $CI_PROJECT_NAME 2>/dev/null || true    
     - docker-compose up -d
