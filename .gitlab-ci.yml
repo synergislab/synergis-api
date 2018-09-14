@@ -36,13 +36,13 @@ deploy-production:
   #image: docker:master
   stage: deploy-production
   tags:
-    - indock
+    - prod-dpl
   only:
     - master
   variables:
     #DOCKER_HOST: '172.17.0.1'  
     #DOCKER_HOST: 'tcp://95.179.134.166:2375'  
-    DOCKER_HOST: 'unix:///var/run/docker.sock'
+    #DOCKER_HOST: 'unix:///var/run/docker.sock'
   script:
     - export
     - ip address
