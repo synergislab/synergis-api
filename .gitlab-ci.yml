@@ -40,7 +40,7 @@ deploy-production:
   only:
     - master
   variables:
-    DOCKER_HOST: 'tcp://172.17.0.1'  
+    DOCKER_HOST: '172.17.0.1'  
     #DOCKER_HOST: 'tcp://95.179.134.166:2375'  
   script:
     - export
