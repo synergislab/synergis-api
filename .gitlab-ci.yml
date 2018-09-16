@@ -23,7 +23,7 @@ variables:
 build-test:
   stage: build-test
   tags:
-    -docker
+    - docker
   only:
     test  
   script:
@@ -35,9 +35,9 @@ build-test:
 deploy-test:
   stage: deploy-test
   tags:
-    -test-dpl
+    - test-dpl
   only:
-    -test
+    - test
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker pull $CONTAINER_PROD_IMAGE
