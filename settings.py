@@ -12,7 +12,6 @@ import os
 # Heroku, sensible DB connection settings are stored in environment variables.
 MONGO_URI = os.environ.get('MONGODB_URI', 'mongodb://exo:exo123@ds141812.mlab.com:41812/settle')
 
-
 # Enable reads (GET), inserts (POST) and DELETE for resources/collections
 # (if you omit this line, the API will default to ['GET'] and provide
 # read-only access to the endpoint).
@@ -27,7 +26,8 @@ ITEM_METHODS = ['GET', 'PATCH', 'DELETE']
 CACHE_CONTROL = 'max-age=20'
 CACHE_EXPIRES = 20
 DEBUG = True
-
+URL_PREFIX = 'synapi'
+API_VERSION = 'V1'
 
 #MONGO_URI = "mongodb://exo:exo123@ds141812.mlab.com:41812/settle"
 
