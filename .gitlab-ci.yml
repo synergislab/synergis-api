@@ -43,7 +43,8 @@ deploy-test:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker pull $CONTAINER_TEST_IMAGE
     - /usr/local/bin/docker-compose up -d
-    - /usr/local/bin/docker-compose rm --force  
+    - /usr/local/bin/docker-compose rm --force 
+    - docker system prune --volumes  --force 
 
 build-production:
   #image: "registry.gitlab.com/max_siz/synergis-api:remotemongo"
@@ -74,3 +75,4 @@ deploy-production:
     - docker pull $CONTAINER_PROD_IMAGE
     - docker-compose up -d
     - docker-compose rm --force
+    - docker system prune --volumes  --force
