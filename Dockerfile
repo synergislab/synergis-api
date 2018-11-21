@@ -1,5 +1,7 @@
 # Use an official Python runtime as a parent image
-FROM python:3.6-slim
+FROM python:3.7
+
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
 # Set the working directory to /app
 WORKDIR /app
