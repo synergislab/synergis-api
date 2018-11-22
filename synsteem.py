@@ -38,6 +38,8 @@ def after_fetch_item_post(response):
         )
         response['blockchainplus'][-1:][0]['FromSteemUrl'] = web3tool.get_sha3(steem_post['url'])
         response['blockchainplus'][-1:][0]['SavedPostUrl'] = r[0]
+        response['blockchainplus'][-1:][0]['txExplorerLink'] = (settings.WEB3_EXPLORER_TX_BASE
+            + response['blockchainplus'][-1:][0]['txHash'])
     
 ###########################################################################
 ###########################################################################
