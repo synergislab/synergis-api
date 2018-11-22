@@ -144,14 +144,15 @@ value is synpat service address (see source).
 * __txForSign__ - [Ethereum transaction object](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction). This field is not null  for record in "readyForSign" 
 state. It can be used for sign with https://www.myetherwallet.com/  or 
 other third side tools.
-* __blockchainplus__  - quintessence object of synpat service (list of objects). 
-  * __FromSteemUrl__ -
-  * __SavedPostUrl__ -
-  * __calculatedPostHash__ - 
-  * __savedEthereumtHash__ - 
-  * __blockNumber__ -
-  * __txHash__ -
-  * __txExplorerLink__ -
+* __blockchainplus__  - quintessence object of synpat service (list of objects). All of its fields(except __txHash__) are calculate or request directly from blockchain (Steem or Ethereum). When this API method (i.e for item) is called __synpat__ service query Steem blockchain post by _author_=@synpat and _permlink_= permlink. The response contains full 
+steem post information. 
+  * __FromSteemUrl__ - result [Keccak SHA256](https://web3py.readthedocs.io/en/latest/overview.html#cryptographic-hashing) of _/steem_category/@steem_author/steem-permlink_, unique post's identifier (@steem_author + steem-permlink). For _synpat service_ posts it always **synpat**. It is "url" field of full steem post object.
+  * __SavedPostUrl__ - same as __FromSteemUrl__, but from Ethereum blockchain transaction. It was stored there during post creation. If  __SavedPostUrl__ == __FromSteemUrl__ then synpat refers to correct transaction in Ethereum.  
+  * __calculatedPostHash__ - synpat service concatenate title an body from full steem post object and calculate for it [Sha3 Solidity style hash](https://web3py.readthedocs.io/en/latest/overview.html#Web3.soliditySha3).
+  * __savedEthereumtHash__ - same as __calculatedPostHash__, but Ethereum blockchain transaction. It was stored there during post creation. If __savedEthereumtHash__ == __calculatedPostHash__ then steem post title and body are have not changed since creation.
+  * __blockNumber__ - Ethereum blockchain block number in which transaction (__txHash__) was included. So post creation time is not later than this block time creation.
+  * __txHash__ - transaction hash. 
+  * __txExplorerLink__ - convenient blockchain explorer link to __txHash__ transaction.
 
 
 #### Get Steem post by Steem permalink
@@ -222,7 +223,7 @@ Server: Eve/0.8.1 Werkzeug/0.14.1 Python/3.7.1
 
 ```
 
-#### Get all Steem post from synpat database
+#### Get all Steem posts from synpat database
 ```bash
 http -v http://ec2-52-53-197-230.us-west-1.compute.amazonaws.com:5000/synapi/V1/posts/
 
@@ -326,7 +327,7 @@ X-Total-Count: 2
 
 #### Get Steem post by filter:  one  tag
 ```bash
-(ve-synbot) max_siz@ubuntu-ms:~/projects/synergis$ http -v http://ec2-52-53-197-230.us-west-1.compute.amazonaws.com:5000/synapi/V1/posts/?where='{"steemtags":"wish"}'
+http -v http://ec2-52-53-197-230.us-west-1.compute.amazonaws.com:5000/synapi/V1/posts/?where='{"steemtags":"wish"}'
 
 #HTTP Request
 GET /synapi/V1/posts/?where=%7B%22steemtags%22:%22wish%22%7D HTTP/1.1
@@ -397,7 +398,7 @@ X-Total-Count: 1
 }
 ```
 
-#### Get Steem post by filter:  two  tags
+#### Get Steem posts by filter:  two  tags
 ```bash
 http -v http://ec2-52-53-197-230.us-west-1.compute.amazonaws.com:5000/synapi/V1/posts/?where='{"steemtags":"wish","steemtags":"idea"}'
 
