@@ -14,7 +14,7 @@ import json
 ## COMMON service settings
 ##########################
 ENVIRON          = os.environ.get('ENVIRON','TEST')
-#Some common params (secret)
+#Some common params (secrets)
 MONGO_URI        = os.environ.get('MONGODB_URI', 'mongodb://172.18.0.3/')
 WEB3_PROVIDER    = os.environ.get('WEB3_PROVIDER','wss://rinkeby.infura.io/ws/v3/22238a03c4ce4f6e9b2a3e0e899a77e6')
 PK_OPERATOR      = os.environ.get('PK_OPERATOR','384D9719F2CDFA068A58811541AA1A6059306A4AE61A0A360EE6443D3F610977')
