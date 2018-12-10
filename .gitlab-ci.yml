@@ -23,7 +23,7 @@ variables:
 build-test:
   stage: build-test
   tags:
-    - indock
+    - synprod
     #- docker
   only:
     - test  
@@ -50,7 +50,7 @@ build-production:
   #image: "registry.gitlab.com/max_siz/synergis-api:remotemongo"
   stage: build-production
   tags:
-    - indock
+    - synprod
   only:
     - master
   script:
@@ -63,7 +63,7 @@ deploy-production:
   #image: docker:master
   stage: deploy-production
   tags:
-    - prod-dpl
+    - synprod
   only:
     - master
   variables:
