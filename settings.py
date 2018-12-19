@@ -15,7 +15,8 @@ import json
 ##########################
 ENVIRON          = os.environ.get('ENVIRON','TEST')
 #Some common params (secrets)
-MONGO_URI        = os.environ.get('MONGODB_URI', 'mongodb://172.18.0.3/')
+MONGO_URI        = os.environ.get('MONGODB_URI', 'mongodb://root:example@172.18.0.3/')
+# MONGO_URI        = os.environ.get('MONGODB_URI', 'mongodb://172.18.0.3/')
 WEB3_PROVIDER    = os.environ.get('WEB3_PROVIDER','wss://rinkeby.infura.io/ws/v3/22238a03c4ce4f6e9b2a3e0e899a77e6')
 PK_OPERATOR      = os.environ.get('PK_OPERATOR','384D9719F2CDFA068A58811541AA1A6059306A4AE61A0A360EE6443D3F610977')
 STEEM_POSTING_PK = os.environ.get('STEEM_POSTING_PK','5Kb1scKxP5cP4bujsPmL6z5YnRfEkMwWA1JidvV9DeddKRVPMhr')
@@ -36,6 +37,9 @@ else: #PROD settings
     ADDRESS_OPERATOR = '0xDDA2F2E159d2Ce413Bd0e1dF5988Ee7A803432E3'
     STEEM_TAG = 'synpat'
     STEEM_SYNPAT_AUTHOR = 'menaskop'
+
+# path to downloaded pdf storage
+PATH_TO_PDF_STORAGE = '/home/server/projects/synergis/downloaded_pdf/'
 
 # contracts ABI (!!!!! true->True, false ->False    - Python style)
 ABI_SYNPATREGISTER = json.loads('[{"constant":true,"inputs":[{"name":"_hashinput","type":"string"}],"name":"calculateSha3","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"permlinkSaved","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"version","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_permlink","type":"string"},{"name":"_hashSha","type":"bytes32"}],"name":"writeSha3","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"pendingOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"payable":false,"stateMutability":"nonpayable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"permlinkSaved_permlink","type":"string"},{"indexed":false,"name":"_hashSha","type":"bytes32"}],"name":"SynpatRecord","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"}]')
@@ -169,6 +173,14 @@ orders = {
                                         'schema': {
                                             'type': {'type': 'string', 'maxlength':12},
                                             'value': {'type': 'string','maxlength':250},
+                                            'downloaded': {
+                                                'type': 'list',
+                                                'schema':{
+                                                    'filepath': {'type': 'string','maxlength':250},
+                                                    'download_time': {'type': 'integer'},
+                                                    'filehash': {'type': 'string','maxlength':50},
+                                                }
+                                            },
                                         }
                                     }
                                 }
@@ -261,7 +273,7 @@ orders = {
                     }
                 },
 
-            } 
+            }
 
         }
 
@@ -300,7 +312,7 @@ posts = {
                 'minlength': 2,
                 'maxlength': 70,
         },
-        
+
 
         'steembody':{
                 'type': 'string',
@@ -341,10 +353,10 @@ posts = {
             'type':'list'
         }
 
-        
+
     },
-    'item_methods': ['GET']    
-}    
+    'item_methods': ['GET']
+}
 # The DOMAIN dict explains which resources will be available and how they will
 # be accessible to the API consumer.
 DOMAIN = {
