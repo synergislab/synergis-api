@@ -22,7 +22,7 @@ PK_OPERATOR      = os.environ.get('PK_OPERATOR','384D9719F2CDFA068A58811541AA1A6
 STEEM_POSTING_PK = os.environ.get('STEEM_POSTING_PK','5Kb1scKxP5cP4bujsPmL6z5YnRfEkMwWA1JidvV9DeddKRVPMhr')
 STEEM_ACTIVE_PK  = os.environ.get('STEEM_ACTIVE_PK','5KWKj7TVQwnzk4awfAFEqfk9q54mUJDN8ycKLUqgCJREy6EZcTP')
 # path to downloaded pdf storage
-PATH_TO_PDF_STORAGE = os.environ.get('PATH_TO_PDF_STORAGE','~')
+PATH_TO_PDF_STORAGE = os.environ.get('PATH_TO_PDF_STORAGE','.')
 
 if  ENVIRON == 'TEST' :
     WEB3_NETWORK = 4
