@@ -8,8 +8,7 @@ from bson.objectid import ObjectId
 # Pdf process
 import os
 import hashlib
-import urllib.request
-import shutil
+import requests
 import time
 
 TEST_URL_TO_DOWNLOAD = 'http://www.africau.edu/images/default/sample.pdf'
@@ -30,6 +29,10 @@ def process_pdf(request, lookup):
 	db = mongo_client.eve
 	orders  = db.orders
 
+	project_name = orders.find_one({
+		'_id': ObjectId(lookup['_id'])
+	})['project_name']
+
 	# get links of requested object
 	parser_searches = orders.find_one({
 		'_id': ObjectId(lookup['_id'])
@@ -47,20 +50,26 @@ def process_pdf(request, lookup):
 		logging.debug('Downloading from url: ' + item['value'])
 
 		# response_pdf is raw response of urlopen
-		# pdf_data is bytes read from response
 		response_pdf = {}
 		try:
-			response_pdf = urllib.request.urlopen(item['value'])
+			response_pdf = requests.get(item['value'], headers={
+				"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) " +
+					"AppleWebKit/537.36 (HTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+			})
 		except Exception as e:
-			logging.error('Cannot download pdf from url: ' + item['value'])
+			logging.error('Cannot download pdf from url: ' + str(item['value']))
 			logging.error(e)
 			continue
+
+		# 304 status code is for not modified
+		if response_pdf.status_code not in [200, 304]:
+			logging.error('Cannot download pdf from url: ' + str(item['value']) + '. Status code: ' + str(response_pdf.status_code))
+			continue
+
 		logging.debug('PDF downloaded')
 
-		pdf_data = response_pdf.read()
-
 		logging.debug('Checking hashsum')
-		md5 = calc_md5(pdf_data)
+		md5 = calc_md5(response_pdf.content)
 		logging.debug('Hashsum is ' + md5)
 		# if there is no downloaded field start saving immediately
 		if 'downloaded' in item:
@@ -73,16 +82,20 @@ def process_pdf(request, lookup):
 		current_time = int(time.time())
 
 		# create folder with object id
-		if not os.path.exists(settings.PATH_TO_PDF_STORAGE + str(lookup['_id'])):
-			os.makedirs(settings.PATH_TO_PDF_STORAGE + str(lookup['_id']))
+		folder_path = os.path.join( settings.PATH_TO_PDF_STORAGE, str(project_name) )
+		if not os.path.exists(folder_path):
+			os.makedirs(folder_path)
 
-		filename = str(lookup['_id']) + '/' + str(current_time) + '_' + response_pdf.url.split('/')[-1]
+		filename = os.path.join(
+			folder_path,
+			str(current_time) + '_' + response_pdf.url.split('/')[-1]
+		)
 		logging.debug('Saving file to: ' + settings.PATH_TO_PDF_STORAGE + filename)
 
 		# shutil methods does not work for some reason
 		# using built-in file's methods
-		out_file = open(settings.PATH_TO_PDF_STORAGE + filename, 'wb')
-		out_file.write(pdf_data)
+		out_file = open(filename, 'wb')
+		out_file.write(response_pdf.content)
 		out_file.close()
 
 		logging.debug('Updating db')
