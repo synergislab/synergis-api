@@ -10,6 +10,10 @@ logging.basicConfig(format='%(asctime)s->%(levelname)s:[in %(filename)s:%(lineno
         , level=int(os.environ.get('EXO_LOGLEVEL',logging.DEBUG))
     )
 
+# this wrapper is required to pass through app object to function
+# that we can use app's db-connection
+def pdf_download_wrapper(request, lookup):
+	pdf_download.check_pdf(app, request, lookup)
 
 
 ###############################################################################
@@ -29,7 +33,7 @@ logging.basicConfig(format='%(asctime)s->%(levelname)s:[in %(filename)s:%(lineno
 #app.on_inserted_posts += wrapper_db_hook
 #app.on_insert_wallets       += wallets.before_db_insert
 app.on_fetched_item_posts += synsteem.after_fetch_item_post
-app.on_pre_GET_orders += pdf_download.check_pdf
+app.on_pre_GET_orders += pdf_download_wrapper
 
 
 if __name__ == '__main__':

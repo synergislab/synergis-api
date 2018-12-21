@@ -12,16 +12,16 @@ import requests
 import time
 
 # checking is argument exists
-def check_pdf(request, lookup):
+def check_pdf(app, request, lookup):
+
 	if request.args.get('check_pdf', None) is None:
 		return
 
 	logging.info('Checking remote pdfs')
 
-	# init db connection
-	mongo_client = pymongo.MongoClient(settings.MONGO_URI)
-	db = mongo_client.eve
-	orders  = db.orders
+	orders = {}
+	with app.app_context():
+		orders = app.data.driver.db['orders']
 
 	project_name = orders.find_one({
 		'_id': ObjectId(lookup['_id'])
@@ -65,6 +65,7 @@ def check_pdf(request, lookup):
 		logging.debug('Checking hashsum')
 		md5 = calc_md5(response_pdf.content)
 		logging.debug('Hashsum is ' + md5)
+
 		# if there is no downloaded field start saving immediately
 		if 'downloaded' in item:
 			# sort existing items just to be sure
