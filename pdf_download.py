@@ -11,19 +11,13 @@ import hashlib
 import requests
 import time
 
-TEST_URL_TO_DOWNLOAD = 'http://www.africau.edu/images/default/sample.pdf'
-
 # checking is argument exists
 def check_pdf(request, lookup):
-	try:
-		request.args['check_pdf']
-	except Exception as e:
+	if request.args.get('check_pdf', None) is None:
 		return
-	else:
-		logging.info('Checking remote pdfs')
-		process_pdf(request, lookup)
 
-def process_pdf(request, lookup):
+	logging.info('Checking remote pdfs')
+
 	# init db connection
 	mongo_client = pymongo.MongoClient(settings.MONGO_URI)
 	db = mongo_client.eve
