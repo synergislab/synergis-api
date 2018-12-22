@@ -1,5 +1,7 @@
 ## Synergis API
 
+Synergis API has two main endpoints : **posts** and **orders**. [Posts](#synpat-service-api) provide Synpat service functionality. [Orders](#synbot-api) provide some functions for process 4K Synbot service data.
+
 
 ### Synpat service API
 Synpat service API expose one endpoint: **posts**. It  represent Steem posts 
@@ -555,4 +557,367 @@ X-Total-Count: 3
 }
 ```
 ### Synbot API 
-to be after..
+Synbot service API expose one endpoint: **orders**. It  represents data that were gathering through 4K Synergis bot.  
+#### Create record
+For create record in orders one need make **POST** request to endpoint  and  simple pass json structure as payload. Payload must be valid json with appropriate structure (see seetings.py) 
+
+#### Get order by ID
+
+```bash
+http -v http://95.179.148.42/synapi/V1/orders/5c0e63219c00b20019f5a12e
+
+#HTTP Request
+GET /synapi/V1/orders/5c0e63219c00b20019f5a12e HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: 95.179.148.42
+User-Agent: HTTPie/1.0.0
+
+
+#HTTP Response
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 4742
+Content-Type: application/json
+Date: Sat, 22 Dec 2018 06:55:06 GMT
+ETag: "f437f1f612128a69077be1810c78a56588fce854"
+Last-Modified: Mon, 10 Dec 2018 12:59:13 GMT
+Server: nginx/1.15.7
+
+{
+    "_created": "Mon, 10 Dec 2018 12:59:13 GMT",
+    "_etag": "f437f1f612128a69077be1810c78a56588fce854",
+    "_id": "5c0e63219c00b20019f5a12e",
+    "_links": {
+        "collection": {
+            "href": "orders?check_pdf=",
+            "title": "orders"
+        },
+        "parent": {
+            "href": "/",
+            "title": "home"
+        },
+        "self": {
+            "href": "orders/5c0e63219c00b20019f5a12e",
+            "title": "Order"
+        }
+    },
+    "_updated": "Mon, 10 Dec 2018 12:59:13 GMT",
+    "entities": {
+        "coin": {
+            "data": {
+                "parser_search": []
+            },
+            "timestamp": 1544446753
+        },
+        "contact": {
+            "data": {
+                "parser_search": [
+                    {
+                        "type": "link",
+                        "value": "https://t.me/thepower_en"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/company/thepowerio/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/thepowerint"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://twitter.com/thepoweren"
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        },
+        "news": {
+            "data": {
+                "parser_search": [
+                    {
+                        "type": "link",
+                        "value": "https://www.reddit.com/user/ThePowerIO"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.reddit.com/r/The_Power/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://medium.com/the-power-official-blog"
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        },
+        "repository": {
+            "data": {
+                "parser_search": [
+                    {
+                        "type": "link",
+                        "value": "https://github.com/thepower/"
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        },
+        "roadmap": {
+            "data": {
+                "parser_search": [
+                    {
+                        "type": "boolean",
+                        "value": true
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        },
+        "team": {
+            "data": {
+                "parser_search": [
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/marc--durand"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/lukelombe/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/iobelousov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/dmitryburov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/kirichenko-v/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/max.urazaev"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/CryptoMaxim"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/oleg.yudin.397"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/zamboglou"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/DmitryBurov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/dmitry-machikhin-56282a77/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/laura-toma-59bb9a7/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/zamboglou/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/christianpope/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/indatetkino/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/vl.kirichenko"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/alexandr.vizgalov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/igor-belousov/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/jeong-hwan-kim/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/asya-dovgaya-73b77023/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/vizgalov/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/maru-kachko/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/vitaly-pirozhkov/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/indatetkino"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/dmitry.machikhin"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/maxurazaev/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/vitaly.pirozhkov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/maximmm/"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/nikolay.saperov"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.facebook.com/dovgayaasya"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://www.linkedin.com/in/oleg-yudin-94b53b84/"
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        },
+        "wp": {
+            "data": {
+                "parser_search": [
+                    {
+                        "downloaded": [
+                            {
+                                "download_time": 1545461705,
+                                "filehash": "054b1084e62b9e5306fbd922fa61e5d9",
+                                "filepath": "/static/thepower/1545461705_Power_OnePager_en.pdf"
+                            }
+                        ],
+                        "type": "link",
+                        "value": "https://thepower.io/f/docs/Power_OnePager_en.pdf"
+                    },
+                    {
+                        "downloaded": [
+                            {
+                                "download_time": 1545461706,
+                                "filehash": "ff77e87cc78269faf528f4b6d9d5e254",
+                                "filepath": "/static/thepower/1545461706_Whitepaper_Power_en.pdf"
+                            }
+                        ],
+                        "type": "link",
+                        "value": "https://thepower.io/f/docs/Whitepaper_Power_en.pdf"
+                    },
+                    {
+                        "type": "link",
+                        "value": "https://thepower.io/f/docs/Tokenomics.pdf"
+                    },
+                    {
+                        "downloaded": [
+                            {
+                                "download_time": 1545461706,
+                                "filehash": "75f91c9291a27f42ce7461535e3361a4",
+                                "filepath": "/static/thepower/1545461706_Power_Smart_Key_(en).pdf"
+                            }
+                        ],
+                        "type": "link",
+                        "value": "https://thepower.io/f/docs/Power_Smart_Key_(en).pdf"
+                    },
+                    {
+                        "downloaded": [
+                            {
+                                "download_time": 1545461706,
+                                "filehash": "894775f2e2e722f73429eff97ef9e0e3",
+                                "filepath": "/static/thepower/1545461706_ThePower_Yellow_paper.pdf"
+                            }
+                        ],
+                        "type": "link",
+                        "value": "https://thepower.io/f/docs/ThePower_Yellow_paper.pdf"
+                    }
+                ]
+            },
+            "timestamp": 1544446753
+        }
+    },
+    "project_id": 0,
+    "project_name": "thepower",
+    "project_site": "https://thepower.io"
+}
+
+```
+
+
+#### Get order by project_name
+Result will  same  as in Get by ID case
+```bash
+http -v http://95.179.148.42/synapi/V1/orders/thepower
+```
+
+
+
+#### Save wp  docs in local starage
+
+```bash
+http -v http://95.179.148.42/synapi/V1/orders/5c0e63219c00b20019f5a12e?check_pdf
+```
+In case of sending GET request for one order item  with additional param **check_pdf** the following will happen:  
+1. Service will find appropriate order item.
+2. Service will extract  all links from **wp** section
+3. For  each link  service  will downloads file. _If_ there is no file in local server storage (with same md5 hash)  _then_  it will be save. Unix date  prefix will be added to file name.  
+
+#### Download from local storage
+Just use link from `downloaded[]`  list in  wp section.
+
+```bash
+http -v http://95.179.148.42/static/thepower/1545461706_ThePower_Yellow_paper.pdf
+
+#HTTP Response
+GET /static/thepower/1545461706_ThePower_Yellow_paper.pdf HTTP/1.1
+Accept: */*
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Host: 95.179.148.42
+User-Agent: HTTPie/1.0.0
+
+
+#HTTP Request
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Connection: keep-alive
+Content-Length: 930290
+Content-Type: application/pdf
+Date: Sat, 22 Dec 2018 10:01:35 GMT
+ETag: "5c1ddfca-e31f2"
+Last-Modified: Sat, 22 Dec 2018 06:55:06 GMT
+Server: nginx/1.15.7
+
+
+
++-----------------------------------------+
+| NOTE: binary data not shown in terminal |
++-----------------------------------------+
+
+```
